@@ -87,16 +87,43 @@ if __name__ == "__main__":
 
 `key' = key ^ mask`로 여러 값들을 decrypt하고, mask와 xor 한 값들을 관찰한 결과
 
-key|value
----|-----
-chall                                             | **3e6076df89cf1d5bdf30a22177f891c99099d47aaf1e28cd0291f876e5c9da38ffef568b7808cd8fcff914e9ccac8fc94017b3bcd54743ae14b72209785bef0a**
-$E_{key}$(chall)                                  | 851cba77dd6d0415ba2cd9600ae3adbef9d163a7cf1ac398e3c68a820c51379512dcc8667b9384be0b0d7db26e70da106af87a793a2097f09263fd5616166c56
-$E_{key}$(chall) $\bigoplus$ mask                 | 7ae345882292fbea45d3269ff51c5241062e9c5830e53c671c39757df3aec86aed233799846c7b41f4f2824d918f25ef95078586c5df680f6d9c02a9e9e993a9
-$D_{key'}$(enc $\bigoplus$ mask)                  | c19f89207630e2a4**df30a22177f891c99099d47aaf1e28cd0291f876e5c9da38ffef568b7808cd8fcff914e9ccac8fc94017b3bcd54743ae14b72209785bef0a**
-$D_{key'}$(enc $\bigoplus$ mask) $\bigoplus$ mask | **3e6076df89cf1d5b**20cf5dde88076e366f662b8550e1d732fd6e07891a3625c70010a97487f732703006eb1633537036bfe84c432ab8bc51eb48ddf687a410f5
+```python
+import os
+from pwn import *
+from Crypto.Cipher import DES3
+
+key = os.urandom(24)
+iv = os.urandom(8)
+challenge = os.urandom(64)
+
+mask = lambda n : b'\xff' * n
+encrypt = lambda key, iv, pt : DES3.new(key, mode=DES3.MODE_CBC, iv=iv).encrypt(pt)
+decrypt = lambda key, iv, ct : DES3.new(key, mode=DES3.MODE_CBC, iv=iv).decrypt(ct)
+
+enc = encrypt(key, iv, challenge)
+enc_x_mask = xor(enc, mask(64))
+
+key_x_mask = xor(key, mask(24))
+pt = decrypt(key_x_mask, iv, enc_x_mask)
+pt_x_mask = xor(pt, mask(64))
+
+print(challenge.hex())
+print(enc.hex())
+print(enc_x_mask.hex())
+print(pt.hex())
+print(pt_x_mask.hex())
+
+"""
+challenge =            3e6076df89cf1d5b df30a22177f891c99099d47aaf1e28cd0291f876e5c9da38ffef568b7808cd8fcff914e9ccac8fc94017b3bcd54743ae14b72209785bef0a
+enc =                  851cba77dd6d0415 ba2cd9600ae3adbef9d163a7cf1ac398e3c68a820c51379512dcc8667b9384be0b0d7db26e70da106af87a793a2097f09263fd5616166c56
+enc ^ mask =           7ae345882292fbea 45d3269ff51c5241062e9c5830e53c671c39757df3aec86aed233799846c7b41f4f2824d918f25ef95078586c5df680f6d9c02a9e9e993a9
+D(enc ^ mask) =        c19f89207630e2a4 df30a22177f891c99099d47aaf1e28cd0291f876e5c9da38ffef568b7808cd8fcff914e9ccac8fc94017b3bcd54743ae14b72209785bef0a
+D(enc ^ mask) ^ mask = 3e6076df89cf1d5b 20cf5dde88076e366f662b8550e1d732fd6e07891a3625c70010a97487f732703006eb1633537036bfe84c432ab8bc51eb48ddf687a410f5
+"""
+```
 
 :::note[WOW!]
-`challenge = (dec(enc^mask)^mask)[:8] + dec(enc^mask)[8:]`
+`challenge = (D(enc ^ mask) ^ mask)[:8] + D(enc ^ mask)[8:]`
 :::
 
 ### exploit
