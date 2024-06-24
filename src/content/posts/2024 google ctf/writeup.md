@@ -246,8 +246,10 @@ P_2=\sum\limits^{127}_{i=0}H(2i+1)=H(1)+H(3)+...+H(255)
 $$
 을 보내면
 
-$$\text{deid}_1=k_1\sum\limits^{127}_{i=0}H(2i) \\
-\text{deid}_2=k_2\sum\limits^{127}_{i=0}H(2i+1)$$
+$$
+\text{deid}_1=k_1\sum\limits^{127}_{i=0}H(2i) \\
+\text{deid}_2=k_2\sum\limits^{127}_{i=0}H(2i+1)
+$$
 이제 brute-force를 통해 `S`를 복구할 수 있다.
 
 
