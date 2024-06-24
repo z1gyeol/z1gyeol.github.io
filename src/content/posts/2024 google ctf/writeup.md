@@ -8,7 +8,8 @@ draft: false
 ---
 
 # 2024 GOOGLE CTF
-기말고사 기간이라 ~~열심히 공부하다~~ 잠깐 했다
+기말고사 기간이라 ~~열심히 공부하다~~ 잠깐 했다<br>
+나머지 문제는 기말 끝나고 풀어야겠다
 
 ## DISFUNCTONAL
 ### source code
@@ -83,9 +84,10 @@ if __name__ == "__main__":
             sys.exit(1)
 ```
 `key`로 encrypt 된 `challenge`를 얻을 수 있고, `key`의 일부 비트가 반전된 `key'`로 임의의 값을 decrypt할 수 있다.<br>
-`corruption`함수를 관찰해본 결과, 평균 9번 정도 실행할 경우 `mask = b'\xff'*24`가 된다.<br>
+`corruption`함수는 평균 9번 정도 실행할 경우 `mask = b'\xff'*24`가 된다.<br>
+`mask = b'\xff' * 24`일 경우 `key`의 모든 비트가 반전되므로 굉장히 수상하다. 
 
-`key' = key ^ mask`로 여러 값들을 decrypt하고, mask와 xor 한 값들을 관찰한 결과
+`key' = key ^ mask`로 여러 값들을 decrypt하고, `mask`와 xor 한 값들을 관찰한 결과
 
 ```python
 import os
@@ -231,8 +233,112 @@ if __name__ == '__main__':
     else:
         print(FLAG)
 ```
-`eids` = 0부터 255 사이의 정수 중 하나를 제외한 배열<br>
-`x = [bytes_to_long(sha256("id={id}").digest()) for id in eids]`의 x좌표 255개의 대해 각각 `secp256r1 curve`위의 point 255개를 생성한다.<br>
-그 후 [0, `curve order`) 사이 난수 `K`에 대해 `[K*point for point in Points]`, 우리가 입력한 point `deid`에 대해 `K*deid`를 알 수 있다.
+`S = [0, 1, 2, ...  255] - [x] for some 0 <= x < 256`<br>
+`eids = [H(id) * k for id in S]`<br>
+`deid = k * Point(NIST256p, *user input())`<br>
+`eids, deid`를 바탕으로 난수 하나가 빠진 배열 `S`를 알아내야 한다.<br>
 
-^학교 끝나고 이어서 쓰기
+point를 생성하는 함수인 `H(id)`는 Hash를 이용하기 때문에 `H(0), H(1), ... H(255)`의 값을 알 수 있다.
+
+$$
+P_1=\sum\limits^{127}_{i=0}H(2i)=H(0)+H(2)+...+H(254) \\
+P_2=\sum\limits^{127}_{i=0}H(2i+1)=H(1)+H(3)+...+H(255)
+$$
+을 보내면
+
+$$\text{deid}_1=k_1\sum\limits^{127}_{i=0}H(2i) \\
+\text{deid}_2=k_2\sum\limits^{127}_{i=0}H(2i+1)$$
+이제 brute-force를 통해 `S`를 복구할 수 있다.
+
+
+편의상 사용자 지정 (로컬) 변수는 앞에 `_`를 붙이고, 서버측 변수는 그냥 쓰겠다.<br>
+`_x == x`인 경우 `_S = S = [0, 1, 2, ... x-1, x+1, ... 255]`가 된다.<br>
+그러면 `eids = [H(0)*k, H(1)*k, H(2)*k, ...  H(x-1)*k, H(x+1)*k, ... H(255)*k]`<br>
+
++ `x`가 홀수인 경우<br>
+`_S, eids`에서 `H(_S[i]) * k = eids[i]`이다 ( _x != x일 경우 인덱스가 밀려 성립x ).<br>
+S는 홀수 하나가 없기 때문에 `eids`에 H(2n)*k 꼴의 point는 모두 존재한다.<br>
+따라서 `_S`의 짝수 인덱스를 모두 구하고, `eids`의 해당 인덱스만 더하면<br>
+$\text{k*(H(0)+H(2)+...+H(x-1)+H(x+1)+...+H(255))}=k\sum\limits^{127}_{i=0}H(2i)=\text{deid}_1$
++ `x`가 짝수인 경우도 마찬가지다.
+
+::: note[WOW!]
+0<=x<256이므로 가능한 모든 `x`에 대해 시도하면 유일하게 `_x == x`인 해 `_x`가 존재한다.
+:::
+
+### exploit
+```python
+import hashlib
+from tqdm import tqdm
+from ecdsa.numbertheory import square_root_mod_prime
+from pwn import *
+
+io = remote("blinders.2024.ctfcompetition.com", int(1337))
+context.log_level = 'error'
+
+io.recvline() # == proof-of-work: disabled ==
+
+p = 0xffffffff00000001000000000000000000000000ffffffffffffffffffffffff
+K = GF(p)
+a = K(0xffffffff00000001000000000000000000000000fffffffffffffffffffffffc)
+b = K(0x5ac635d8aa3a93e7b3ebbd55769886bc651d06b0cc53b0f63bce3c3e27d2604b)
+E = EllipticCurve(K, (a, b))
+
+def H(id):
+    hash = hashlib.sha256(f'id={id}'.encode()).digest()
+    x = int.from_bytes(hash, 'big')
+
+    while True:
+        y2 = (x**3 + a*x + b) % p
+        if jacobi_symbol(y2, p) == 1: break
+        x += 1
+
+    y = square_root_mod_prime(*map(int, [y2, p]))
+    return E(x, y)
+
+eid_1 = sum([H(i) for i in range(0, 256, 2)])
+eid_2 = sum([H(i) for i in range(1, 256, 2)])
+
+def sol():
+    io.sendline(f"handle {eid_1.xy()[0]} {eid_1.xy()[1]}".encode())
+
+    eids1 = eval(io.recvline())
+    deid1 = eval(io.recvline())
+
+    eids1 = [E(*eids1[i]) for i in range(255)]
+    deid1 = E(*deid1)
+
+    io.sendline(f"handle {eid_2.xy()[0]} {eid_2.xy()[1]}".encode())
+
+    eids2 = eval(io.recvline())
+    deid2 = eval(io.recvline())
+
+    eids2 = [E(*eids2[i]) for i in range(255)]
+    deid2 = E(*deid2)
+
+    for i in range(256):
+        S = [*range(256)]
+        S.remove(i)
+
+        if i%2:
+            idx = [S.index(j) for j in range(0, 256, 2)]
+            if sum([eids1[j] for j in idx]) == deid1:
+                return S
+
+        else:
+            idx = [S.index(j) for j in range(1, 256, 2)]
+            if sum([eids2[j] for j in idx]) == deid2:
+                return S
+
+for _ in tqdm(range(16)):
+    S = sol()
+    io.sendline(f"submit {hashlib.sha256(','.join(map(str,S)).encode()).hexdigest()}".encode())
+    io.recvuntil(b"OK!\n")
+
+raise ZeroDivisionError(io.recvline(keepends=False).decode())
+```
+> `CTF{pr1v4t3_s3t_m3mb3rsh1p_qu3r135_m3d4_m0r3_p0w3rfu1}`<br>
+
+
+### 뉴비의 글 읽어주셔서 감사합니다!<br>
+![Amelia Watson Winking](https://cdn3.emoji.gg/emojis/7050_Amelia_Watson_Winking.gif)
