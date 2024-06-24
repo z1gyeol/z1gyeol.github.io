@@ -7,6 +7,7 @@ I'm captain of [ST3P](https://ctftime.org/team/240981). Also, I live in Dimigo.
 + Piano
 + Hacking (Cryptography)
 + Hololive
++ [Park jong hwi](https://blog.wane.im/)
 
 ## info
 + discord : `elliptic_curve`
