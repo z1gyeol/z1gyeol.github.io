@@ -2,7 +2,7 @@
 title: 2024 Google CTF writeup
 published: 2024-06-24
 description: 2 solve
-tags: [DES]
+tags: [block-cipher, DES, elliptic]
 category: Crypto
 draft: false
 ---
@@ -87,13 +87,14 @@ if __name__ == "__main__":
 
 `key' = key ^ mask`로 여러 값들을 decrypt하고, mask와 xor 한 값들을 관찰한 결과
 
-::: note[important]
-chall         = 3e6076df89cf1d5bdf30a22177f891c99099d47aaf1e28cd0291f876e5c9da38ffef568b7808cd8fcff914e9ccac8fc94017b3bcd54743ae14b72209785bef0a<br>
-$E_{key}$(chall)               = 851cba77dd6d0415ba2cd9600ae3adbef9d163a7cf1ac398e3c68a820c51379512dcc8667b9384be0b0d7db26e70da106af87a793a2097f09263fd5616166c56<br>
-$E_{key}$(chall) $\bigoplus$ mask           = 7ae345882292fbea45d3269ff51c5241062e9c5830e53c671c39757df3aec86aed233799846c7b41f4f2824d918f25ef95078586c5df680f6d9c02a9e9e993a9<br>
-$D_{key'}$(enc $\bigoplus$ mask)      = c19f89207630e2a4df30a22177f891c99099d47aaf1e28cd0291f876e5c9da38ffef568b7808cd8fcff914e9ccac8fc94017b3bcd54743ae14b72209785bef0a<br>
+chall = 3e6076df89cf1d5bdf30a22177f891c99099d47aaf1e28cd0291f876e5c9da38ffef568b7808cd8fcff914e9ccac8fc94017b3bcd54743ae14b72209785bef0a<br>
+$E_{key}$(chall) = 851cba77dd6d0415ba2cd9600ae3adbef9d163a7cf1ac398e3c68a820c51379512dcc8667b9384be0b0d7db26e70da106af87a793a2097f09263fd5616166c56<br>
+$E_{key}$(chall) $\bigoplus$ mask = 7ae345882292fbea45d3269ff51c5241062e9c5830e53c671c39757df3aec86aed233799846c7b41f4f2824d918f25ef95078586c5df680f6d9c02a9e9e993a9<br>
+$D_{key'}$(enc $\bigoplus$ mask) = c19f89207630e2a4df30a22177f891c99099d47aaf1e28cd0291f876e5c9da38ffef568b7808cd8fcff914e9ccac8fc94017b3bcd54743ae14b72209785bef0a<br>
 $D_{key'}$(enc $\bigoplus$ mask) $\bigoplus$ mask = 3e6076df89cf1d5b20cf5dde88076e366f662b8550e1d732fd6e07891a3625c70010a97487f732703006eb1633537036bfe84c432ab8bc51eb48ddf687a410f5
-`challenge = dec(enc^mask)^mask[:8]+dec(enc^mask)[8:]`
+
+:::note[WOW!]
+challenge = dec(enc^mask)^mask[:8]+dec(enc^mask)[8:]
 :::
 
 ### exploit
