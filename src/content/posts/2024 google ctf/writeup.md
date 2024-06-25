@@ -11,7 +11,7 @@ draft: false
 기말고사 기간이라 ~~열심히 공부하다~~ 잠깐 했다<br>
 나머지 문제는 기말 끝나고 풀어야겠다
 
-## DISFUNCTONAL
+## DISFUNCTIONAL
 ### source code
 ```python
 import signal
