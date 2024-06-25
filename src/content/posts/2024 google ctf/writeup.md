@@ -83,7 +83,7 @@ if __name__ == "__main__":
             print(e)
             sys.exit(1)
 ```
-`key`로 encrypt 된 `challenge`를 얻을 수 있고, `key`의 일부 비트가 반전된 `key'`로 임의의 값을 decrypt할 수 있다.<br>
+`key`로 encrypt 된 `challenge`를 얻을 수 있고, `key`의 일부 비트가 반전된 `key'`로 input을 decrypt할 수 있다.<br>
 `corruption`함수는 평균 9번 정도 실행할 경우 `mask = b'\xff'*24`가 된다.<br>
 `mask = b'\xff' * 24`일 경우 `key`의 모든 비트가 반전되므로 굉장히 수상하다. 
 
