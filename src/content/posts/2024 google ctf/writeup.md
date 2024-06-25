@@ -281,7 +281,7 @@ from pwn import *
 io = remote("blinders.2024.ctfcompetition.com", int(1337))
 context.log_level = 'error'
 
-io.recvline() # == proof-of-work: disabled ==
+io.recvline() # recv  '== proof-of-work: disabled =='
 
 p = 0xffffffff00000001000000000000000000000000ffffffffffffffffffffffff
 K = GF(p)
