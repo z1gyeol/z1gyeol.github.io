@@ -60,7 +60,7 @@ $\text{six}[d_5^{-1}]=d_5, \text{five}[d_6^{-1}]=d_6$을 정의할 수 있다<br
 $d_5, d_6$을 계속 생성하다보면 $\text{five}[d_5]$와 $\text{six}[d_5^{-1}]$이 동시에 존재하는 경우가 발생하게 되고,<br>
 이때, $d_5\sdot  \text{five}[d_5]=d_5\sdot d_6=N$이 된다. $N\equiv1\operatorname{mod}T$를 통해 확인 가능하다.
 :::
-## ex.py
+## exploit
 ```python
 from Crypto.Util.number import isPrime
 from sympy import divisors, gcd, prod
