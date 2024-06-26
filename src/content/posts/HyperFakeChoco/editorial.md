@@ -33,7 +33,7 @@ draft: false
 + 가짜 초콜릿 수 $N$ : $N$과 서로소인 임의의 수 $a$에 대해 페르마 소정리를 만족시키는 **합성수**
 
 ## exploit
-::: note[important]
+:::note[important]
 페르마 소정리를 만족시키는 합성수 $N$을 [Carmichael number](https://en.wikipedia.org/wiki/Carmichael_number)라 한다.
 $N$은 소수의 곱 꼴 $\prod\limits_{i=0}^kp_i$로 나타낼 수 있고, 
 이때 $N$은 [square-free](https://en.wikipedia.org/wiki/Square-free_integer),  $p_i-1\vert N-1$,  $N\equiv1\operatorname{mod}T$를 만족시킨다
