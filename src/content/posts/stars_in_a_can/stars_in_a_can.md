@@ -3,7 +3,7 @@ title: Stars in a Can
 published: 2024-07-09
 description: 'Ruby 5'
 image: './star.png'
-tags: []
+tags: [geometry,geometry 3d,convex hull,smallest enclosing circle]
 category: 'PS'
 draft: false 
 ---
