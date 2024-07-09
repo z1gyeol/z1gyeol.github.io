@@ -7,7 +7,7 @@ import type {
 import { LinkPreset } from './types/config'
 
 export const siteConfig: SiteConfig = {
-  title: 'c0degolf',
+  title: 'z1gyeol',
   subtitle: 'blog',
   lang: 'en', // 'en', 'zh_CN', 'zh_TW', 'ja'
   themeColor: {
@@ -34,7 +34,7 @@ export const navBarConfig: NavBarConfig = {
     LinkPreset.About,
     {
       name: 'GitHub',
-      url: 'https://github.com/c0degolf', // Internal links should not include the base path, as it is automatically added
+      url: 'https://github.com/z1gyeol', // Internal links should not include the base path, as it is automatically added
       external: true, // Show an external link icon and will open in a new tab
     },
   ],
@@ -42,7 +42,7 @@ export const navBarConfig: NavBarConfig = {
 
 export const profileConfig: ProfileConfig = {
   avatar: 'assets/images/avatar.png', // Relative to the /src directory. Relative to the /public directory if it starts with '/'
-  name: 'c0degolf',
+  name: 'z1gyeol',
   bio: 'Korean student',
   links: [
     {
@@ -50,12 +50,12 @@ export const profileConfig: ProfileConfig = {
       icon: 'fa6-brands:twitter', // Visit https://icones.js.org/ for icon codes
       // You will need to install the corresponding icon set if it's not already included
       // `pnpm add @iconify-json/<icon-set-name>`
-      url: 'https://x.com/c0degolf',
+      url: 'https://x.com/z1gyeol',
     },
     {
       name: 'GitHub',
       icon: 'fa6-brands:github',
-      url: 'https://github.com/c0degolf',
+      url: 'https://github.com/z1gyeol',
     },
   ],
 }
