@@ -12,3 +12,4 @@
 ## info
 + discord : `hwair_`
 + github : `z1gyeol`
++ solved ac : [`z1gyeol`](https://solved.ac/profile/z1gyeol)
