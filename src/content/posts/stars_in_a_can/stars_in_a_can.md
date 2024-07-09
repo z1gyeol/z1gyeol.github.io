@@ -36,10 +36,10 @@ Each of the next n lines will contain three integers x, y and z (−1,000 ≤ x,
  + 이제 모든 점을 이 평면에 투영한다. 점이 평면에 수직인 방향으로 이동하여 평면 위에 놓일 것이다. 좀 더 자세히 알아보자
 	 + 평면 $S$가 세 점 $A, B, C$로 이루어져 있을 때, $S$의 법선 벡터 $\overrightarrow{n}=\overrightarrow{AB}\ \times\ \overrightarrow{AC}$ 이다. 이 법선 벡터를 단위 벡터로 만들어 버리자. 그러면 단위 벡터 $\overrightarrow{u}={\overrightarrow{n} \over ||\overrightarrow{n}||}$ 이다. 이제 어떤 점 $P$를 이 점에 투영한다는 것은 $\overrightarrow{n}$의 반대 방향으로 $P$와 $S$의 거리만큼 이동하는 것과 같다. 이때 $P$와 $S$ 사이의 거리 $x=(\overrightarrow{P}-\overrightarrow{A})\sdot\overrightarrow{u}$이다. 그럼 투영한 점 $P'=P-x\overrightarrow{u}$ 이다. 이걸 모든 점에 대해 반복하면서 투영한 점의 집합을 구하고 동시에 $|x|$의 최댓값, 즉 원기둥의 높이도 구할 수 있다. 참고로 $x$는 부호가 있는 거리이므로 높이를 구할 땐 절댓값을 붙인다.
 + 이제 밑면을 구해보자. 평면 위에 점들을 투영했으니 이 점들의 최소 외접원을 구하면 그것이 원기둥의 밑면이 된다. 최소 외접원 알고리즘을 사용하자 
- ![image](./ses.png) (나는 이거 썼다)
+ ![image](./ses.png) (짧길래 그냥 이거 썼다)
  
  3. 부피 구하기
- + 위 과정에서 밑면의 반지름,  높이까지 구했으니 모든 면에 대해 반복하면서 부피의 최솟값을 구하자.
+ + 위 과정에서 밑면의 반지름, 높이까지 구할 수 있으니 모든 면에 대해 반복하면서 부피의 최솟값을 구하자.
 # Code
 코드가 상당히 더럽다;
 ```python
