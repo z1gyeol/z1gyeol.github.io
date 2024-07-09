@@ -1,15 +1,14 @@
 # About
-Hello! I'm c0degolf!<br>
-I'm captain of [ST3P](https://ctftime.org/team/240981). Also, I live in Dimigo.
+주한결<br>
+예비 의대생
 
 ## interested in
-+ Guitar
-+ Piano
-+ Hacking (Crypto)
-+ Hololive
-+ [WANE](https://blog.wane.im/)
++ Mathematics
++ Geometry
++ Geometry Dash
++ Medicine
++ Studying
 
 ## info
-+ discord : `elliptic_curve`
-+ twitter : `c0degolf`
-+ github : `c0degolf`
++ discord : `hwair_`
++ github : `z1gyeol`

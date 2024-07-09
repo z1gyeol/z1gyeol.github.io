@@ -11,7 +11,7 @@ export const siteConfig: SiteConfig = {
   subtitle: 'blog',
   lang: 'en', // 'en', 'zh_CN', 'zh_TW', 'ja'
   themeColor: {
-    hue: 250, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
+    hue: 185, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
     fixed: false, // Hide the theme color picker for visitors
   },
   banner: {
@@ -45,13 +45,6 @@ export const profileConfig: ProfileConfig = {
   name: 'z1gyeol',
   bio: 'dimigo',
   links: [
-    {
-      name: 'Twitter',
-      icon: 'fa6-brands:twitter', // Visit https://icones.js.org/ for icon codes
-      // You will need to install the corresponding icon set if it's not already included
-      // `pnpm add @iconify-json/<icon-set-name>`
-      url: 'https://x.com/z1gyeol',
-    },
     {
       name: 'GitHub',
       icon: 'fa6-brands:github',
