@@ -1,6 +1,6 @@
 # About
 주한결<br>
-예비 의대생
+의대지망생
 
 ## interested in
 + Mathematics
