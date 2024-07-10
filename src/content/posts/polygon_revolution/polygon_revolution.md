@@ -3,7 +3,7 @@ title: Polygon_Revolution
 published: 2024-07-10
 description: 'Diamond 3'
 image: './spin.gif'
-tags: [geometry,convex_hull,half_plane_intersection]
+tags: [geometry,convex hull,half plane intersection]
 category: 'PS'
 draft: false 
 ---
@@ -46,18 +46,9 @@ The first line of the input is a positive integer T, denoting the number of test
 + 나뉜 두 다각형을 각각 $A, B$라고 하자. 두 다각형의 공통 영역을 구하려면 둘 중 하나를 축에 대해 대칭 이동 해야 한다. 그럼 두 공통 영역이 반드시 생겨난다. 문제에서는 축을 $Ax+By+C=0$이라고 줬으니 편하게 계산하자. https://blog.naver.com/gt7461/220275701816 여기에 공식이 있다.
 + 대칭 이동에 성공했으면 공통된 영역을 구하자. https://www.acmicpc.net/problem/1077 이 문제와 같다. 여기서 반평면 교집합을 쓰면 아주아주아주아주 쉽고 간단하게 끝난다. 반평면 교집합 없이도 할 수 있으나 시간도 더 오래 걸리고 구현이 매우 귀찮다. $A$를 대칭이동 해서 $A'$이 나왔다고 하자. 그럼 그냥 $A',B$를 이루는 반평면들끼리 반평면 교집합을 돌린다. 그럼 공통 영역이 나온다.
 3. 계산
-+ 다 끝났고 부피 계산만이 남았다. 문제에 부피 구하는 방법은 나와있다. 그러므로 필요한 것은 다각형의 면적과 중심이다. 넓이는 그 유명한 신발끈 공식을 쓰면 되니 중심을 구해보자.
-<br>
-$C_x={1\over6A}\sum\limits^{n-1}_{k=0}(x_i+x_{i+1})(x_iy_{i+1}-x_{i+1}y_i)$
-<br>
-$C_x={1\over6A}\sum\limits^{n-1}_{k=0}(y_i+y_{i+1})(x_iy_{i+1}-x_{i+1}y_i)$
-<br>
++ 다 끝났고 부피 계산만이 남았다. 문제에 부피 구하는 방법은 나와있다. 그러므로 필요한 것은 다각형의 면적과 중심이다. 넓이는 그 유명한 신발끈 공식을 쓰면 되니 중심을 구해보자.<br><br>$C_x={1\over6A}\sum\limits^{n-1}_{k=0}(x_i+x_{i+1})(x_iy_{i+1}-x_{i+1}y_i)$<br><br>$C_x={1\over6A}\sum\limits^{n-1}_{k=0}(y_i+y_{i+1})(x_iy_{i+1}-x_{i+1}y_i)$<br>
 여기서 $A$는 넓이이다. 그리고 $i+1$에서 꼭 $(i+1)\%n$을 쓰자.
-부피는 다음과 같다.
-<br>
-$V=2\pi A\overline x$
-<br>
-여기서 $\overline x$는 중심 $C$와 축 사이의 거리이다. 
+부피는 문제에 나와 있듯이 다음과 같다.<br><br>$V=2\pi A\overline x$<br><br>여기서 $\overline x$는 중심 $C$와 축 사이의 거리이다. 
 
 이 문제는 당신에게 엄청난 정밀도를 요구할지도 모른다.
 필자의 10번의 오답 코드 중 4번은 정밀도 때문이었다. 코드를 어떻게 짜느냐에 따라 다르겠지만 필자는 실수 오차가 큰 코드를 썼는지 엄청난 오차와 맞다이를 깠다.
