@@ -9,6 +9,11 @@
 + Medicine
 + Studying
 
+## Pet
++ [`c0degolf`](https://c0degolf.github.io/)
++ [`Wane`](https://blog.wane.im/)
++ [`EXON`](https://blog.exon.kr/)
+
 ## info
 + discord : `hwair_`
 + github : `z1gyeol`
