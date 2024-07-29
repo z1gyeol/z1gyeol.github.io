@@ -1,7 +1,7 @@
 ---
 title: Polygon_Revolution
 published: 2024-07-10
-description: 'Diamond 3'
+description: 'Diamond III'
 image: './spin.gif'
 tags: [geometry,convex hull,half plane intersection]
 category: 'PS'
