@@ -30,34 +30,37 @@ $$x^ne^x=e^x \text{\textbraceleft} P(x)+P^{\prime}(x) \text{\textbraceright}$$
  그러면 $P(x)+P^{\prime}(x)$는 다음과 같다.
  $$a_nx^n+\sum_{i=0}^{n-1}a_ix^i+\sum_{i=0}^{n-1}(i+1)a_{i+1}x^i=a_nx^n+\sum_{i=0}^{n-1}x^i\text{\textbraceleft}a_i+(i+1)a_{i+1}\text{\textbraceright}=x^n$$
  따라서 $a_n=1$이고 $\displaystyle\sum_{i=0}^{n-1}x^i\text{\textbraceleft}a_i+(i+1)a_{i+1}\text{\textbraceright}=0$이 되어야 하므로 
- $$a_i+(i+1)a_{i+1}=0$$이다.
+ $$a_i+(i+1)a_{i+1}=0$$
+ 
  $a_i=-(i+1)a_{i+1}$이므로
- > $a_n=1$
- > $a_{n-1}=-n$
- > $a_{n-2}=n(n-1)$
- > $a_{n-3}=-n(n-1)(n-2)$
- > ...
- > $a_i=(-1)^{n-i}\sdot\Large{n!\over i!}$
+ > $a_n=1$<br>
+ > $a_{n-1}=-n$<br>
+ > $a_{n-2}=n(n-1)$<br>
+ > $a_{n-3}=-n(n-1)(n-2)$<br>
+ > ...<br>
+ > $a_i=(-1)^{n-i}\sdot\Large{n!\over i!}$<br>
  >...
  
  라는 것을 알 수 있다. 그러므로
  $$P(x)=\sum_{i=0}^n(-1)^{n-i}\sdot{n!\over i!}\sdot x^i$$
- 이다. 따라서
+ 따라서
  $$\int x^ne^xdx=e^x\sum_{i=0}^n(-1)^{n-i}\sdot{n!\over i!}\sdot x^i+C$$
  ## $\displaystyle\int P(x)e^xdx$
  이번엔 조금 더 일반적인 경우이다. 우선 $P(x)=\displaystyle\sum_{i=0}^na_ix^i$와 $P_1(x)=\displaystyle\sum_{i=0}^nb_ix^i$에 대하여 $\displaystyle\int P(x)e^xdx=P_1(x)e^x+C$임을 이전 과정을 통해 알 수 있다. 아까와 동일하게 양변을 미분함으로써 $P(x)=P_1(x)+P_1^{\prime}(x)$임을 알 수 있다.
- $$P_1(x)+P_1^{\prime}(x)=b_nx^n+\sum_{i=0}^{n-1}x^i\text{\textbraceleft}b_i+(i+1)b_{i+1}\text{\textbraceright}$$이므로 $b_n=a_n$이고 $b_i+(i+1)b_{i+1}=a_i$이다.
+ $$P_1(x)+P_1^{\prime}(x)=b_nx^n+\sum_{i=0}^{n-1}x^i\text{\textbraceleft}b_i+(i+1)b_{i+1}\text{\textbraceright}$$
+ 이므로 $b_n=a_n$이고 $b_i+(i+1)b_{i+1}=a_i$이다.
  따라서
- >$b_n=a_n$
- >$b_{n-1}=a_{n-1}-na_n$
- >$b_{n-2}=a_{n-2}-(n-1)a_{n-1}+n(n-1)a_n$
- >$b_{n-3}=a_{n-3}-(n-2)a_{n-2}+(n-1)(n-2)a_{n-1}-n(n-1)(n-2)a_n$
- >...
- >$b_i=\displaystyle\sum_{j=i}^n(-1)^{j-i}\sdot{j!\over i!}\sdot a_j$
+ >$b_n=a_n$<br>
+ >$b_{n-1}=a_{n-1}-na_n$<br>
+ >$b_{n-2}=a_{n-2}-(n-1)a_{n-1}+n(n-1)a_n$<br>
+ >$b_{n-3}=a_{n-3}-(n-2)a_{n-2}+(n-1)(n-2)a_{n-1}-n(n-1)(n-2)a_n$<br>
+ >...<br>
+ >$b_i=\displaystyle\sum_{j=i}^n(-1)^{j-i}\sdot{j!\over i!}\sdot a_j$<br>
  >...
  
 이다. 그러므로
-$$P_1(x)=\sum_{i=0}^n\Large(\normalsize x^i\sum_{j=i}^n(-1)^{j-i}\sdot{j!\over i!}\sdot a_j\Large)$$이므로
+$$P_1(x)=\sum_{i=0}^n\Large(\normalsize x^i\sum_{j=i}^n(-1)^{j-i}\sdot{j!\over i!}\sdot a_j\Large)$$
+이므로
 $$\displaystyle\int\Large( \normalsize e^x\displaystyle\sum_{i=0}^na_ix^i\Large)\normalsize dx=e^x\sum_{i=0}^n\Large(\normalsize x^i\sum_{j=i}^n(-1)^{j-i}\sdot{j!\over i!}\sdot a_j\Large)\normalsize+C$$
 <br><br><br><br>
 
