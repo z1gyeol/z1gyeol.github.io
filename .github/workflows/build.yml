@@ -26,10 +26,10 @@ jobs:
         uses: pnpm/action-setup@v4
 
       - name: Install deps
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Build Astro
-        run: pnpm astro build
+        run: pnpm build
 
       - name: Disable Jekyll
         run: touch dist/.nojekyll
